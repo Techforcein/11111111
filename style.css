@@ -1,0 +1,576 @@
+/* ===================================================================
+   style.css
+   -------------------------------------------------------------------
+   Design tokens:
+     bg        #FAFBFC  porcelain white
+     ink       #0A0E14  near-black text
+     blue      #2D7FF9  signal blue (primary accent / header arrow)
+     cyan      #00E6C3  cyan-mint glow (ambient blobs, sheens)
+     orange    #FF6B35  previous-arrow accent
+     green     #39FF8E  next-arrow accent
+   Type:
+     display   Space Grotesk
+     body      Inter
+     mono      JetBrains Mono (year badge, dots)
+   =================================================================== */
+
+:root {
+  --bg: #FAFBFC;
+  --ink: #0A0E14;
+  --ink-soft: #5B6470;
+  --blue: #2D7FF9;
+  --cyan: #00E6C3;
+  --orange: #FF6B35;
+  --green: #39FF8E;
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(10, 14, 20, 0.08);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --carousel-duration: 800ms;
+
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  height: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ============================================================
+   AMBIENT BACKGROUND
+   ============================================================ */
+
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.45;
+  will-change: transform;
+}
+
+.bg__blob--a {
+  width: 520px;
+  height: 520px;
+  top: -180px;
+  left: -120px;
+  background: radial-gradient(circle, var(--cyan), transparent 70%);
+  animation: drift-a 22s ease-in-out infinite;
+}
+
+.bg__blob--b {
+  width: 620px;
+  height: 620px;
+  bottom: -260px;
+  right: -160px;
+  background: radial-gradient(circle, var(--blue), transparent 70%);
+  opacity: 0.3;
+  animation: drift-b 26s ease-in-out infinite;
+}
+
+.bg__blob--c {
+  width: 380px;
+  height: 380px;
+  top: 40%;
+  left: 50%;
+  background: radial-gradient(circle, var(--cyan), transparent 70%);
+  opacity: 0.18;
+  animation: drift-c 18s ease-in-out infinite;
+}
+
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 40px) scale(1.08); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, -30px) scale(1.05); }
+}
+@keyframes drift-c {
+  0%, 100% { transform: translate(-50%, 0) scale(1); }
+  50% { transform: translate(-50%, -40px) scale(1.15); }
+}
+
+.bg__noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   HEADER — floating glassmorphism
+   ============================================================ */
+
+.header {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: min(94vw, 1180px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px 12px 16px;
+  border-radius: 999px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 8px 30px rgba(10, 14, 20, 0.06);
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.header__titles {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.header__brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.header__sub {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__year {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: var(--ink);
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+
+.header__arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  box-shadow: 0 4px 14px rgba(45, 127, 249, 0.35);
+}
+
+.header__arrow:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(45, 127, 249, 0.5);
+}
+
+.header__arrow:active {
+  transform: scale(0.96);
+}
+
+/* ============================================================
+   SHOWROOM / STAGE
+   ============================================================ */
+
+.showroom {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 0 40px;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+  touch-action: pan-y;
+}
+
+.stage__lightpool {
+  position: absolute;
+  bottom: 38px;
+  left: 50%;
+  width: 360px;
+  height: 90px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(45,127,249,0.16), rgba(0,230,195,0.08) 55%, transparent 75%);
+  filter: blur(6px);
+  animation: pool-breathe 3.4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes pool-breathe {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.85; }
+  50% { transform: translateX(-50%) scale(1.12); opacity: 1; }
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* ---- carousel slots ----
+   Each .slot is absolutely positioned by app.js (via inline transform/opacity
+   set per role) so JS only ever toggles a data-role attribute + sets
+   transform/opacity — no layout properties touched, per perf requirement. */
+
+.slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity, filter;
+  transition:
+    transform var(--carousel-duration) var(--ease-in-out),
+    opacity var(--carousel-duration) var(--ease-in-out),
+    filter var(--carousel-duration) var(--ease-in-out);
+  cursor: pointer;
+}
+
+.slot__media-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slot__tilt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.slot__img,
+.slot__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.slot__shadow {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  width: 60%;
+  height: 18px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(10,14,20,0.18), transparent 75%);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* Role-based sizing (transform scale handled inline by JS for smooth interpolation
+   during drag/swipe; these set the base/reference sizes) */
+
+.slot[data-role="far"]  .slot__media-wrap { width: 120px; height: 132px; }
+.slot[data-role="near"] .slot__media-wrap { width: 190px; height: 209px; }
+.slot[data-role="center"] .slot__media-wrap { width: 320px; height: 352px; }
+
+.slot[data-role="far"],
+.slot[data-role="near"] {
+  filter: blur(1.5px) saturate(0.92);
+}
+
+.slot[data-role="far"] .slot__img,
+.slot[data-role="near"] .slot__img {
+  opacity: 0.72;
+}
+
+.slot[data-role="far"]:hover,
+.slot[data-role="near"]:hover {
+  filter: blur(0px) saturate(1.05);
+}
+
+.slot[data-role="far"]:hover .slot__img,
+.slot[data-role="near"]:hover .slot__img {
+  opacity: 1;
+}
+
+.slot[data-role="center"] {
+  cursor: pointer;
+  z-index: 5;
+}
+
+.slot[data-role="center"] .slot__media-wrap {
+  animation: float-center 4.5s ease-in-out infinite;
+}
+
+@keyframes float-center {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+
+/* Hidden slots (queued off-screen, used for the infinite loop buffer) */
+.slot[data-role="hidden"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hover lift+glow for clickable side products */
+.slot[data-role="far"]:hover .slot__media-wrap,
+.slot[data-role="near"]:hover .slot__media-wrap {
+  filter: drop-shadow(0 10px 24px rgba(45, 127, 249, 0.25));
+}
+
+/* Transition state used while a slide is animating, to add scale/fade emphasis */
+.slot.is-entering-center {
+  animation: pulse-in var(--carousel-duration) var(--ease-out);
+}
+
+@keyframes pulse-in {
+  0% { filter: brightness(1.15) saturate(1.2); }
+  100% { filter: brightness(1) saturate(1); }
+}
+
+/* ============================================================
+   PRODUCT INFO
+   ============================================================ */
+
+.product-info {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 92px;
+}
+
+.product-info__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -0.02em;
+  margin: 0;
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+}
+
+.product-info__divider {
+  width: 40px;
+  height: 1px;
+  background: var(--glass-border);
+  margin: 14px 0 10px;
+}
+
+.product-info__tagline {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin: 0;
+  transition: opacity 0.35s var(--ease-out);
+}
+
+.product-info.is-fading .product-info__name,
+.product-info.is-fading .product-info__tagline {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* ============================================================
+   BOTTOM NAVIGATION
+   ============================================================ */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 28px;
+  display: flex;
+  gap: 8px;
+  z-index: 50;
+}
+
+.bottom-nav--prev { left: 28px; }
+.bottom-nav--next { right: 28px; }
+
+.arrow-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 14px rgba(10, 14, 20, 0.07);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.3s var(--ease-out);
+}
+
+.arrow-btn--prev { color: var(--orange); }
+.arrow-btn--next { color: var(--green); }
+
+.arrow-btn--prev:hover {
+  transform: scale(1.12) translateX(-2px);
+  box-shadow: 0 0 0 1px var(--orange), 0 8px 22px rgba(255, 107, 53, 0.35);
+}
+
+.arrow-btn--next:hover {
+  transform: scale(1.12) translateX(2px);
+  box-shadow: 0 0 0 1px var(--green), 0 8px 22px rgba(57, 255, 142, 0.35);
+}
+
+.arrow-btn:active { transform: scale(0.94); }
+
+/* stagger the three arrows slightly so they read as a directional cluster */
+.bottom-nav--prev .arrow-btn:nth-child(2),
+.bottom-nav--next .arrow-btn:nth-child(2) { opacity: 0.7; transform: scale(0.92); }
+.bottom-nav--prev .arrow-btn:nth-child(3),
+.bottom-nav--next .arrow-btn:nth-child(3) { opacity: 0.45; transform: scale(0.85); }
+
+/* ============================================================
+   DOTS (orientation aid)
+   ============================================================ */
+
+.dots {
+  position: fixed;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 40;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--glass-border);
+  transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.dot.is-active {
+  background: var(--blue);
+  transform: scale(1.3);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* Tablet: hide outermost "far" slots -> 3 visible */
+@media (max-width: 980px) {
+  .slot[data-role="far"] {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+  .stage { height: 400px; }
+}
+
+/* Mobile: center + immediate neighbors only (handled in tablet rule already,
+   tighten sizing/spacing here) */
+@media (max-width: 640px) {
+  .header {
+    top: 12px;
+    padding: 10px 12px 10px 10px;
+    border-radius: 22px;
+  }
+  .header__sub { display: none; }
+  .header__year { padding: 6px 11px; font-size: 11px; }
+
+  .showroom { padding: 96px 0 32px; }
+  .stage { height: 320px; }
+
+  .slot[data-role="near"] .slot__media-wrap { width: 130px; height: 143px; }
+  .slot[data-role="center"] .slot__media-wrap { width: 230px; height: 253px; }
+
+  .product-info__name { font-size: 24px; }
+
+  .bottom-nav { bottom: 18px; }
+  .bottom-nav--prev { left: 14px; }
+  .bottom-nav--next { right: 14px; }
+  .arrow-btn { width: 36px; height: 36px; }
+  .bottom-nav--prev .arrow-btn:nth-child(3),
+  .bottom-nav--next .arrow-btn:nth-child(3) { display: none; }
+
+  .dots { bottom: 16px; }
+}
