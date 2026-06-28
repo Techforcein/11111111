@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Virtual Tour — 360° Showroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ================= AMBIENT BACKGROUND ================= -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__blob bg__blob--a"></div>
+    <div class="bg__blob bg__blob--b"></div>
+    <div class="bg__blob bg__blob--c"></div>
+    <div class="bg__noise"></div>
+  </div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header" id="header">
+    <div class="header__left">
+      <div class="header__logo" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28">
+          <circle cx="16" cy="16" r="14" fill="none" stroke="#0A0E14" stroke-width="2"/>
+          <circle cx="16" cy="16" r="5" fill="#2D7FF9"/>
+        </svg>
+      </div>
+      <div class="header__titles">
+        <span class="header__brand">Virtual Tour</span>
+        <span class="header__sub">Experience 360° View</span>
+      </div>
+    </div>
+
+    <div class="header__right">
+      <span class="header__year">2030</span>
+      <button class="header__arrow" id="headerArrowBtn" aria-label="Continue">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN SHOWROOM ================= -->
+  <main class="showroom">
+
+    <div class="stage" id="stage">
+      <!-- Light pool / reflection plane sits behind the center product (signature element) -->
+      <div class="stage__lightpool" id="lightPool" aria-hidden="true"></div>
+
+      <!-- Carousel track: slots are generated and positioned by app.js -->
+      <div class="track" id="track" role="listbox" aria-label="Product carousel"></div>
+    </div>
+
+    <!-- ============ PRODUCT INFO ============ -->
+    <div class="product-info" id="productInfo">
+      <h1 class="product-info__name" id="productName">—</h1>
+      <div class="product-info__divider" aria-hidden="true"></div>
+      <p class="product-info__tagline" id="productTagline">Click to Explore</p>
+    </div>
+
+    <!-- ============ BOTTOM NAVIGATION ============ -->
+    <nav class="bottom-nav bottom-nav--prev" aria-label="Previous product">
+      <button class="arrow-btn arrow-btn--prev" data-arrow-index="0" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="arrow-btn arrow-btn--prev" data-arrow-index="1" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="arrow-btn arrow-btn--prev" data-arrow-index="2" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </nav>
+
+    <nav class="bottom-nav bottom-nav--next" aria-label="Next product">
+      <button class="arrow-btn arrow-btn--next" data-arrow-index="0" aria-label="Next">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="arrow-btn arrow-btn--next" data-arrow-index="1" aria-label="Next">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="arrow-btn arrow-btn--next" data-arrow-index="2" aria-label="Next">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </nav>
+
+    <!-- Progress dots: quick visual index, not in original spec but free a11y/orientation win -->
+    <div class="dots" id="dots" aria-hidden="true"></div>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

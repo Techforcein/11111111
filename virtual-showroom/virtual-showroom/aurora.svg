@@ -1,0 +1,51 @@
+<svg viewBox="0 0 400 440" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cupGradaurora" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2D7FF9" stop-opacity="1"/>
+      <stop offset="1" stop-color="#2D7FF9" stop-opacity="0.78"/>
+    </linearGradient>
+    <linearGradient id="bandGradaurora" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1C1F26" stop-opacity="1"/>
+      <stop offset="1" stop-color="#1C1F26" stop-opacity="0.9"/>
+    </linearGradient>
+    <radialGradient id="sheenaurora" cx="0.35" cy="0.3" r="0.7">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <g >
+    <g>
+      <!-- headband -->
+      <path d="M 70 190 Q 70 40 200 40 Q 330 40 330 190"
+            fill="none" stroke="url(#bandGradaurora)" stroke-width="26"
+            stroke-linecap="round" />
+      <path d="M 70 190 Q 70 40 200 40 Q 330 40 330 190"
+            fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="6"
+            stroke-linecap="round" />
+
+      <!-- left cup -->
+      <g>
+        <ellipse cx="68" cy="230" rx="46" ry="62" fill="url(#cupGradaurora)" />
+        <ellipse cx="68" cy="230" rx="46" ry="62" fill="none" stroke="#00E6C3" stroke-opacity="0.35" stroke-width="2"/>
+        <ellipse cx="68" cy="230" rx="30" ry="44" fill="#0A0E14" />
+        <ellipse cx="55" cy="205" rx="16" ry="20" fill="url(#sheenaurora)" />
+      </g>
+
+      <!-- right cup -->
+      <g>
+        <ellipse cx="332" cy="230" rx="46" ry="62" fill="url(#cupGradaurora)" />
+        <ellipse cx="332" cy="230" rx="46" ry="62" fill="none" stroke="#00E6C3" stroke-opacity="0.35" stroke-width="2"/>
+        <ellipse cx="332" cy="230" rx="30" ry="44" fill="#0A0E14" />
+        <ellipse cx="319" cy="205" rx="16" ry="20" fill="url(#sheenaurora)" />
+        <circle cx="332" cy="230" r="5" fill="#00E6C3" opacity="0.9" />
+      </g>
+
+      <!-- yokes -->
+      <path d="M 68 168 L 68 195" stroke="#1C1F26" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 332 168 L 332 195" stroke="#1C1F26" stroke-width="10" stroke-linecap="round"/>
+
+      
+    </g>
+  </g>
+</svg>
